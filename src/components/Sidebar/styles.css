@@ -1,0 +1,12 @@
+.sidebar .nav-link.active {
+  color: #2470dc;
+}
+
+
+.sidebar .nav-link>:first-child {
+  color: #4fd1c5;
+}
+
+.sidebar .nav-link.active>:first-child {
+  color: white;
+}
