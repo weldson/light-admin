@@ -111,6 +111,21 @@ const Sidebar = () => {
               }
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/bags">
+              {({ isActive }) =>
+                isActive ? (
+                  <ItemActive text="Sacolas">
+                    <IoBagHandle size={16} color="#fff" />
+                  </ItemActive>
+                ) : (
+                  <Item text="Sacolas">
+                    <IoBagHandle size={16} color="#4fd1c5" />
+                  </Item>
+                )
+              }
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>

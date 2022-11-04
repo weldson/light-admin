@@ -16,8 +16,6 @@ import {
   removeCategory,
 } from '../../services/categories/categories.service';
 
-// import { alertSuccess, alertError } from '../../utils/alert';
-
 import {
   ButtonContainer,
   CircleButton,
@@ -27,7 +25,7 @@ import {
   SubheaderContainer,
 } from './styles';
 
-const Categories = () => {
+export const Categories = () => {
   const [id, setId] = useState('');
   const [name, setName] = useState('');
 
@@ -190,5 +188,3 @@ const Categories = () => {
     </>
   );
 };
-
-export { Categories };

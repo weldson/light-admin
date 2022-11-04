@@ -15,7 +15,6 @@ interface ProviderProps {
 
 export const ProvidersContextProvider = ({ children }: ProviderProps) => {
   const [providers, setProviders] = useState<Provider[]>([]);
-  // const [isLoading, setIsLoading] = useState(false);
 
   const updateProviders = async () => {
     const response = await listProviders();
