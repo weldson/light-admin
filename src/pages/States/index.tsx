@@ -2,39 +2,38 @@ import React, { useState, useContext } from 'react';
 import { IoMdTrash } from 'react-icons/io';
 import { HiPencil } from 'react-icons/hi';
 
-import { Category } from 'interfaces/Category';
 import { Subheader } from 'components/Subheader';
 import { CustomCard } from 'components/CustomCard';
 import { CircleButton, CustomTable } from 'components/CustomTable';
+import { State } from 'interfaces/State';
+import { StatesContext } from 'services/states/states.context';
 import { Header } from '../../components/Header';
-
-import { CategoriesContext } from '../../services/categories/categories.context';
 
 import { AddModal } from './components/AddModal';
 import { EditModal } from './components/EditModal';
 
-export const Categories = () => {
-  const [category, setCategory] = useState<Category>();
+export const States = () => {
+  const [state, setState] = useState<State>();
 
   const [showModalAdd, setShowModalAdd] = useState(false);
   const [showModalEdit, setShowModalEdit] = useState(false);
 
-  const { categories, removeCategory } = useContext(CategoriesContext);
+  const { states, removeState } = useContext(StatesContext);
 
-  const handleEdit = async (selectedCategory: Category) => {
-    setCategory(selectedCategory);
+  const handleEdit = async (selectedState: State) => {
+    setState(selectedState);
     setShowModalEdit(true);
   };
 
-  const handleRemove = async (selectedCategory: Category) => {
-    if (selectedCategory.id) {
-      await removeCategory(selectedCategory.id);
+  const handleRemove = async (selectedState: State) => {
+    if (selectedState.id) {
+      await removeState(selectedState.id);
     }
   };
 
   return (
     <>
-      <Header title="Categorias" />
+      <Header title="Estados" />
       <Subheader showModal={setShowModalAdd} />
       <CustomCard>
         <CustomCard.Body>
@@ -42,20 +41,22 @@ export const Categories = () => {
             <thead>
               <tr>
                 <th className="col-md-1 col-sm-1">#</th>
-                <th className="col-md-10 col-sm-9">Nome</th>
+                <th className="col-md-1 col-sm-1">Sigla</th>
+                <th className="col-md-9 col-sm-8">Nome</th>
                 <th className="col-md-1 col-sm-2">Ações</th>
               </tr>
             </thead>
             <tbody>
-              {categories.map((c) => (
-                <tr key={c.id} className="align-middle">
-                  <td>{c.id}</td>
-                  <td>{c.name}</td>
+              {states.map((s) => (
+                <tr key={s.id} className="align-middle">
+                  <td>{s.id}</td>
+                  <td>{s.slug}</td>
+                  <td>{s.name}</td>
                   <td>
-                    <CircleButton onClick={() => handleEdit(c)}>
+                    <CircleButton onClick={() => handleEdit(s)}>
                       <HiPencil color="#5f5b5b" size={20} />
                     </CircleButton>
-                    <CircleButton onClick={() => handleRemove(c)}>
+                    <CircleButton onClick={() => handleRemove(s)}>
                       <IoMdTrash color="#5f5b5b" size={16} />
                     </CircleButton>
                   </td>
@@ -69,7 +70,7 @@ export const Categories = () => {
       <AddModal showModal={showModalAdd} setShowModal={setShowModalAdd} />
 
       <EditModal
-        category={category}
+        state={state}
         showModal={showModalEdit}
         setShowModal={setShowModalEdit}
       />

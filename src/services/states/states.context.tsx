@@ -1,10 +1,12 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { State } from 'interfaces/State';
-import { listStates } from './states.service';
+import { listStates, remove, save, update } from './states.service';
 
 interface StatesContextProps {
   states: State[];
-  updateStates: () => Promise<void>;
+  createState: (state: State) => Promise<void>;
+  updateState: (id: number, state: State) => Promise<void>;
+  removeState: (id: number) => Promise<void>;
 }
 
 export const StatesContext = createContext({} as StatesContextProps);
@@ -22,6 +24,21 @@ export const StatesContextProvider = ({ children }: ProviderProps) => {
     setStates(response);
   };
 
+  const createState = async (state: State) => {
+    await save(state);
+    await updateStates();
+  };
+
+  const updateState = async (id: number, state: State) => {
+    await update(id, state);
+    await updateStates();
+  };
+
+  const removeState = async (id: number) => {
+    await remove(id);
+    await updateStates();
+  };
+
   useEffect(() => {
     updateStates();
   }, []);
@@ -30,7 +47,9 @@ export const StatesContextProvider = ({ children }: ProviderProps) => {
     <StatesContext.Provider
       value={{
         states,
-        updateStates,
+        createState,
+        updateState,
+        removeState,
       }}
     >
       {children}

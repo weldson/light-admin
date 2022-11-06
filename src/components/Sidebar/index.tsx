@@ -7,6 +7,9 @@ import {
   IoCash,
   IoBagHandle,
   IoPricetags,
+  IoMap,
+  IoCard,
+  IoBusiness,
 } from 'react-icons/io5';
 import { NavLink } from 'react-router-dom';
 import { Item } from './Item';
@@ -115,12 +118,72 @@ const Sidebar = () => {
             <NavLink className="nav-link" to="/bags">
               {({ isActive }) =>
                 isActive ? (
-                  <ItemActive text="Sacolas">
+                  <ItemActive text="Embalagens">
                     <IoBagHandle size={16} color="#fff" />
                   </ItemActive>
                 ) : (
-                  <Item text="Sacolas">
+                  <Item text="Embalagens">
                     <IoBagHandle size={16} color="#4fd1c5" />
+                  </Item>
+                )
+              }
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/states">
+              {({ isActive }) =>
+                isActive ? (
+                  <ItemActive text="Estados">
+                    <IoMap size={16} color="#fff" />
+                  </ItemActive>
+                ) : (
+                  <Item text="Estados">
+                    <IoMap size={16} color="#4fd1c5" />
+                  </Item>
+                )
+              }
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/cities">
+              {({ isActive }) =>
+                isActive ? (
+                  <ItemActive text="Cidades">
+                    <IoMap size={16} color="#fff" />
+                  </ItemActive>
+                ) : (
+                  <Item text="Cidades">
+                    <IoMap size={16} color="#4fd1c5" />
+                  </Item>
+                )
+              }
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/payments">
+              {({ isActive }) =>
+                isActive ? (
+                  <ItemActive text="Formas de pagamento">
+                    <IoCard size={16} color="#fff" />
+                  </ItemActive>
+                ) : (
+                  <Item text="Formas de pagamento">
+                    <IoCard size={16} color="#4fd1c5" />
+                  </Item>
+                )
+              }
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/companies-size">
+              {({ isActive }) =>
+                isActive ? (
+                  <ItemActive text="Tamanho da empresa">
+                    <IoBusiness size={16} color="#fff" />
+                  </ItemActive>
+                ) : (
+                  <Item text="Tamanho da empresa">
+                    <IoBusiness size={16} color="#4fd1c5" />
                   </Item>
                 )
               }

@@ -1,10 +1,14 @@
-import { Customer } from 'interfaces/Customer';
 import React, { useState, createContext, useEffect } from 'react';
-import { listCustomers } from './customers.service';
+
+import { Customer } from 'interfaces/Customer';
+
+import { list, save, update, remove } from './customers.service';
 
 interface CustomerContextProps {
   customers: Customer[];
-  updateCustomers: () => Promise<void>;
+  createCustomer: (customer: Customer) => Promise<void>;
+  updateCustomer: (id: number, customer: Customer) => Promise<void>;
+  removeCustomer: (id: number) => Promise<void>;
 }
 
 export const CustomersContext = createContext({} as CustomerContextProps);
@@ -17,9 +21,24 @@ export const CustomersContextProvider = ({ children }: ProviderProps) => {
   const [customers, setCustomers] = useState<Customer[]>([]);
 
   const updateCustomers = async () => {
-    const response = await listCustomers();
+    const response = await list();
 
     setCustomers(response);
+  };
+
+  const createCustomer = async (customer: Customer) => {
+    await save(customer);
+    await updateCustomers();
+  };
+
+  const updateCustomer = async (id: number, customer: Customer) => {
+    await update(id, customer);
+    await updateCustomers();
+  };
+
+  const removeCustomer = async (id: number) => {
+    await remove(id);
+    await updateCustomers();
   };
 
   useEffect(() => {
@@ -30,7 +49,9 @@ export const CustomersContextProvider = ({ children }: ProviderProps) => {
     <CustomersContext.Provider
       value={{
         customers,
-        updateCustomers,
+        createCustomer,
+        updateCustomer,
+        removeCustomer,
       }}
     >
       {children}

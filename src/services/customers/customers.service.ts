@@ -1,22 +1,20 @@
 import { Customer } from 'interfaces/Customer';
 import { db } from '../../db';
 
-export const listCustomers = async () => {
+export const list = async () => {
   const customers = await db.customers.toArray();
 
   return customers;
 };
 
-export const addCustomers = async (customer: Customer) => {
-  const id = await db.customers.add(customer);
-
-  return id;
+export const save = async (customer: Customer) => {
+  await db.customers.add(customer);
 };
 
-export const updateCustomers = async (id: number, customer: Customer) => {
+export const update = async (id: number, customer: Customer) => {
   await db.customers.update(id, customer);
 };
 
-export const removeCustomers = async (id: number) => {
+export const remove = async (id: number) => {
   await db.customers.delete(id);
 };

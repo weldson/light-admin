@@ -1,6 +1,6 @@
 import React, { useState, createContext, useEffect } from 'react';
 import { Product } from 'interfaces/Product';
-import { listProducts } from './products.service';
+import { list } from './products.service';
 
 interface ProductsContextProps {
   products: Product[];
@@ -17,7 +17,7 @@ export const ProductsContextProvider = ({ children }: PropviderProps) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   const updateProducts = async () => {
-    const response = await listProducts();
+    const response = await list();
 
     setProducts(response);
   };

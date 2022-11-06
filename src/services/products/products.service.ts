@@ -1,7 +1,7 @@
 import { Product } from 'interfaces/Product';
 import { db } from '../../db';
 
-export const listProducts = async () => {
+export const list = async () => {
   const products = await db.products.toArray();
 
   // await Promise.all(
@@ -16,16 +16,16 @@ export const listProducts = async () => {
   return products;
 };
 
-export const addProduct = async (product: Product) => {
+export const save = async (product: Product) => {
   const id = await db.products.add(product);
 
   return id;
 };
 
-export const updateProduct = async (id: number, product: Product) => {
+export const update = async (id: number, product: Product) => {
   await db.products.update(id, product);
 };
 
-export const removeProduct = async (id: number) => {
+export const remove = async (id: number) => {
   await db.products.delete(id);
 };

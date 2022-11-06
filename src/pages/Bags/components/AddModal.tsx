@@ -1,21 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
+import { BagsContext } from 'services/bags/bags.context';
 
-interface BagModalProps {
+interface AddModalProps {
   showModal: boolean;
   setShowModal: (value: boolean) => void;
 }
 
-export const AddModal = ({ showModal, setShowModal }: BagModalProps) => {
+export const AddModal = ({ showModal, setShowModal }: AddModalProps) => {
   const [name, setName] = useState<string>('');
-  const [price, setPrice] = useState<string>('');
-  const [quantity, setQuantity] = useState<string>('');
+  const [price, setPrice] = useState<number>(0);
+  const [quantity, setQuantity] = useState<number>(0);
+
+  const { createBag } = useContext(BagsContext);
+
+  const handleSave = async () => {
+    await createBag({ name, price, quantity });
+    setShowModal(false);
+  };
 
   useEffect(() => {
     if (showModal) {
       setName('');
-      setPrice('');
-      setQuantity('');
+      setPrice(0);
+      setQuantity(0);
     }
   }, [showModal]);
 
@@ -42,7 +50,7 @@ export const AddModal = ({ showModal, setShowModal }: BagModalProps) => {
                 type="number"
                 placeholder="R$ X,XX"
                 value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                onChange={(e) => setPrice(Number(e.target.value))}
               />
             </Form.Group>
           </Col>
@@ -53,7 +61,7 @@ export const AddModal = ({ showModal, setShowModal }: BagModalProps) => {
                 type="number"
                 placeholder="Quant."
                 value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
+                onChange={(e) => setQuantity(Number(e.target.value))}
               />
             </Form.Group>
           </Col>
@@ -63,7 +71,7 @@ export const AddModal = ({ showModal, setShowModal }: BagModalProps) => {
         <Button variant="secondary" onClick={() => setShowModal(false)}>
           Cancelar
         </Button>
-        <Button variant="success" onClick={() => console.log('added')}>
+        <Button variant="success" onClick={() => handleSave()}>
           Salvar
         </Button>
       </Modal.Footer>

@@ -1,10 +1,12 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { Bag } from 'interfaces/Bag';
-import { listBags } from './bags.service';
+import { list, remove, save, update } from './bags.service';
 
 interface BagsContextProps {
   bags: Bag[];
-  updateBags: () => Promise<void>;
+  createBag: (bag: Bag) => Promise<void>;
+  updateBag: (id: number, bag: Bag) => Promise<void>;
+  removeBag: (id: number) => Promise<void>;
 }
 
 export const BagsContext = createContext({} as BagsContextProps);
@@ -17,9 +19,24 @@ export const BagsContextProvider = ({ children }: ProviderProps) => {
   const [bags, setBags] = useState<Bag[]>([]);
 
   const updateBags = async (): Promise<void> => {
-    const response = await listBags();
+    const response = await list();
 
     setBags(response);
+  };
+
+  const createBag = async (bag: Bag): Promise<void> => {
+    await save(bag);
+    await updateBags();
+  };
+
+  const updateBag = async (id: number, bag: Bag): Promise<void> => {
+    await update(id, bag);
+    await updateBags();
+  };
+
+  const removeBag = async (id: number): Promise<void> => {
+    await remove(id);
+    await updateBags();
   };
 
   useEffect(() => {
@@ -30,7 +47,9 @@ export const BagsContextProvider = ({ children }: ProviderProps) => {
     <BagsContext.Provider
       value={{
         bags,
-        updateBags,
+        createBag,
+        updateBag,
+        removeBag,
       }}
     >
       {children}

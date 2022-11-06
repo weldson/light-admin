@@ -1,21 +1,32 @@
+import { Category } from 'interfaces/Category';
+import { alert } from 'utils/alert';
 import { db } from '../../db';
 
-export const listCategories = async () => {
+export const list = async () => {
   const categories = await db.categories.toArray();
-  console.log(categories);
+
   return categories;
 };
 
-export const addCategory = async (name: string) => {
-  const id = await db.categories.add({ name });
+export const save = async (category: Category) => {
+  const categoryExists = await db.categories.get({ name: category.name });
 
-  return id;
+  if (categoryExists) {
+    alert.error('Já existe uma categoria com este nome!');
+    return;
+  }
+  try {
+    await db.categories.add(category);
+    alert.success('Categoria criada com sucesso!');
+  } catch {
+    alert.error('Algo de errado acontenceu, tente novamente!');
+  }
 };
 
-export const updateCategory = async (id: number, name: string) => {
-  await db.categories.update(id, { name });
+export const update = async (id: number, category: Category) => {
+  await db.categories.update(id, category);
 };
 
-export const removeCategory = async (id: number) => {
+export const remove = async (id: number) => {
   await db.categories.delete(id);
 };

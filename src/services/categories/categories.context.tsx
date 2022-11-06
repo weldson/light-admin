@@ -1,10 +1,12 @@
 import React, { useState, createContext, useEffect } from 'react';
 import { Category } from 'interfaces/Category';
-import { listCategories } from './categories.service';
+import { list, save, update, remove } from './categories.service';
 
 interface CategoriesContextProps {
   categories: Category[];
-  updateCategories(): Promise<void>;
+  createCategory: (category: Category) => Promise<void>;
+  updateCategory: (id: number, category: Category) => Promise<void>;
+  removeCategory: (id: number) => Promise<void>;
 }
 
 export const CategoriesContext = createContext({} as CategoriesContextProps);
@@ -17,8 +19,23 @@ export const CategoriesContextProvider = ({ children }: ProviderProps) => {
   const [categories, setCategories] = useState<Category[]>([]);
 
   const updateCategories = async () => {
-    const response = await listCategories();
+    const response = await list();
     setCategories(response);
+  };
+
+  const createCategory = async (category: Category) => {
+    await save(category);
+    await updateCategories();
+  };
+
+  const updateCategory = async (id: number, category: Category) => {
+    await update(id, category);
+    await updateCategories();
+  };
+
+  const removeCategory = async (id: number) => {
+    await remove(id);
+    await updateCategories();
   };
 
   useEffect(() => {
@@ -29,7 +46,9 @@ export const CategoriesContextProvider = ({ children }: ProviderProps) => {
     <CategoriesContext.Provider
       value={{
         categories,
-        updateCategories,
+        createCategory,
+        updateCategory,
+        removeCategory,
       }}
     >
       {children}

@@ -6,3 +6,15 @@ export const listStates = async () => {
 
   return states;
 };
+
+export const save = async (state: State) => {
+  await db.states.add(state);
+};
+
+export const update = async (id: number, state: State) => {
+  await db.states.update(id, state);
+};
+
+export const remove = async (id: number) => {
+  await db.states.delete(id);
+};
