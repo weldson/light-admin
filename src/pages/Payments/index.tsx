@@ -10,8 +10,8 @@ import { Payment } from 'interfaces/Payment';
 import { Header } from 'components/Header';
 import { PaymentsContext } from 'services/payments/payments.context';
 
-// import { AddModal } from './components/AddModal';
-// import { EditModal } from './components/EditModal';
+import { AddModal } from './components/AddModal';
+import { EditModal } from './components/EditModal';
 
 export const Payments = () => {
   const [payment, setPayment] = useState<Payment>();
@@ -68,13 +68,13 @@ export const Payments = () => {
         </CustomCard.Body>
       </CustomCard>
 
-      {/* <AddModal showModal={showModalAdd} setShowModal={setShowModalAdd} />
+      <AddModal showModal={showModalAdd} setShowModal={setShowModalAdd} />
 
       <EditModal
-        state={state}
+        payment={payment}
         showModal={showModalEdit}
         setShowModal={setShowModalEdit}
-      /> */}
+      />
     </>
   );
 };

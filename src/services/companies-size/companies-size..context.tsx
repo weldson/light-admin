@@ -1,11 +1,13 @@
 import React, { useState, createContext, useEffect } from 'react';
 
 import { CompanySize } from 'interfaces/CompanySize';
-import { listCompaniesSize } from './companies-size.service';
+import { list, save, update, remove } from './companies-size.service';
 
 interface CompaniesSizeContextProps {
   companiesSize: CompanySize[];
-  updateCompaniesSize: () => Promise<void>;
+  createCompanySize: (companySize: CompanySize) => Promise<void>;
+  updateCompanySize: (id: number, companySize: CompanySize) => Promise<void>;
+  removeCompanySize: (id: number) => Promise<void>;
 }
 
 export const CompaniesSizeContext = createContext(
@@ -20,9 +22,24 @@ export const CompaniesSizeContextProvider = ({ children }: PropviderProps) => {
   const [companiesSize, setCompaniesSize] = useState<CompanySize[]>([]);
 
   const updateCompaniesSize = async () => {
-    const response = await listCompaniesSize();
+    const response = await list();
 
     setCompaniesSize(response);
+  };
+
+  const createCompanySize = async (companySize: CompanySize) => {
+    await save(companySize);
+    await updateCompaniesSize();
+  };
+
+  const updateCompanySize = async (id: number, companySize: CompanySize) => {
+    await update(id, companySize);
+    await updateCompaniesSize();
+  };
+
+  const removeCompanySize = async (id: number) => {
+    await remove(id);
+    await updateCompaniesSize();
   };
 
   useEffect(() => {
@@ -33,7 +50,9 @@ export const CompaniesSizeContextProvider = ({ children }: PropviderProps) => {
     <CompaniesSizeContext.Provider
       value={{
         companiesSize,
-        updateCompaniesSize,
+        createCompanySize,
+        updateCompanySize,
+        removeCompanySize,
       }}
     >
       {children}

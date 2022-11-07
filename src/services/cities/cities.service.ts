@@ -26,6 +26,7 @@ export const save = async (city: City) => {
   }
 
   await db.cities.add(city);
+  alert.success('Cidade adicionada com sucesso!');
 };
 
 export const update = async (id: number, city: City) => {
@@ -33,5 +34,12 @@ export const update = async (id: number, city: City) => {
 };
 
 export const remove = async (id: number) => {
+  const providerInCity = await db.providers.get({ cityId: id });
+
+  if (providerInCity) {
+    alert.error('Existe um fornecedor nesta cidade!');
+    return;
+  }
   await db.cities.delete(id);
+  alert.success('Cidade removida com sucesso!');
 };
