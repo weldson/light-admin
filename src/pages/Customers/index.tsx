@@ -10,7 +10,7 @@ import { Customer } from 'interfaces/Customer';
 import { Header } from 'components/Header';
 import { CustomersContext } from 'services/customers/customers.context';
 
-// import { AddModal } from './components/AddModal';
+import { AddModal } from './components/AddModal';
 // import { EditModal } from './components/EditModal';
 
 export const Customers = () => {
@@ -54,7 +54,7 @@ export const Customers = () => {
                   <td>{c.id}</td>
                   <td>{c.name}</td>
                   <td>{c.phone}</td>
-                  <td>{c.birth.getDate()}</td>
+                  <td>{c.birth.toLocaleDateString('pt-BR')}</td>
                   <td>
                     <CircleButton onClick={() => handleEdit(c)}>
                       <HiPencil color="#5f5b5b" size={20} />
@@ -70,7 +70,7 @@ export const Customers = () => {
         </CustomCard.Body>
       </CustomCard>
 
-      {/* <AddModal showModal={showModalAdd} setShowModal={setShowModalAdd} /> */}
+      <AddModal showModal={showModalAdd} setShowModal={setShowModalAdd} />
 
       {/* <EditModal
         state={state}

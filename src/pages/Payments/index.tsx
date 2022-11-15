@@ -42,8 +42,8 @@ export const Payments = () => {
             <thead>
               <tr>
                 <th className="col-md-1 col-sm-1">#</th>
-                <th className="col-md-1 col-sm-1">Nome</th>
-                <th className="col-md-9 col-sm-8">Taxa (%)</th>
+                <th className="col-md-8 col-sm-7">Nome</th>
+                <th className="col-md-2 col-sm-3">Taxa (%)</th>
                 <th className="col-md-1 col-sm-2">Ações</th>
               </tr>
             </thead>

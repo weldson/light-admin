@@ -7,9 +7,9 @@ import { CustomCard } from 'components/CustomCard';
 import { CustomTable } from 'components/CustomTable';
 import { Bag } from 'interfaces/Bag';
 import { Subheader } from 'components/Subheader';
-import { Header } from '../../components/Header';
+import { Header } from 'components/Header';
 
-import { BagsContext } from '../../services/bags/bags.context';
+import { BagsContext } from 'services/bags/bags.context';
 
 import { CircleButton } from './styles';
 import { AddModal } from './components/AddModal';
@@ -72,6 +72,7 @@ export const Bags = () => {
       </CustomCard>
 
       <AddModal showModal={showModalAdd} setShowModal={setShowModalAdd} />
+
       <EditModal
         bag={bag}
         showModal={showModalEdit}
