@@ -1,10 +1,13 @@
-import { Provider } from 'interfaces/Provider';
 import React, { useState, createContext, useEffect } from 'react';
-import { listProviders } from './providers.service';
+
+import { Provider } from 'interfaces/Provider';
+import { list, save, update, remove } from './providers.service';
 
 interface ProvidersContextProps {
   providers: Provider[];
-  updateProviders: () => Promise<void>;
+  createProvider: (provider: Provider) => Promise<void>;
+  updateProvider: (id: number, provider: Provider) => Promise<void>;
+  removeProvider: (id: number) => Promise<void>;
 }
 
 export const ProvidersContext = createContext({} as ProvidersContextProps);
@@ -17,9 +20,24 @@ export const ProvidersContextProvider = ({ children }: ProviderProps) => {
   const [providers, setProviders] = useState<Provider[]>([]);
 
   const updateProviders = async () => {
-    const response = await listProviders();
+    const response = await list();
 
     setProviders(response);
+  };
+
+  const createProvider = async (provider: Provider) => {
+    await save(provider);
+    await updateProviders();
+  };
+
+  const updateProvider = async (id: number, provider: Provider) => {
+    await update(id, provider);
+    await updateProviders();
+  };
+
+  const removeProvider = async (id: number) => {
+    await remove(id);
+    await updateProviders();
   };
 
   useEffect(() => {
@@ -30,7 +48,9 @@ export const ProvidersContextProvider = ({ children }: ProviderProps) => {
     <ProvidersContext.Provider
       value={{
         providers,
-        updateProviders,
+        createProvider,
+        updateProvider,
+        removeProvider,
       }}
     >
       {children}

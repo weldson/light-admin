@@ -14,6 +14,12 @@ export const list = async () => {
   return cities;
 };
 
+export const getByStateId = async (id: number) => {
+  const cities = await db.cities.where('stateId').equals(id).toArray();
+
+  return cities;
+};
+
 export const save = async (city: City) => {
   const cityExists = await db.cities.get({
     name: city.name,

@@ -1,13 +1,14 @@
 import React, { createContext, useEffect, useState } from 'react';
 
 import { City } from 'interfaces/City';
-import { list, remove, save, update } from './cities.service';
+import { list, remove, save, update, getByStateId } from './cities.service';
 
 interface CitiesContextProps {
   cities: City[];
   createCity: (city: City) => Promise<void>;
   updateCity: (id: number, city: City) => Promise<void>;
   removeCity: (id: number) => Promise<void>;
+  filterCities: (stateId: number) => Promise<void>;
 }
 
 export const CitiesContext = createContext({} as CitiesContextProps);
@@ -17,12 +18,18 @@ interface ProviderProps {
 }
 
 export const CitiesContextProvider = ({ children }: ProviderProps) => {
-  const [cities, setBags] = useState<City[]>([]);
+  const [cities, setCities] = useState<City[]>([]);
 
   const updateCities = async (): Promise<void> => {
     const response = await list();
 
-    setBags(response);
+    setCities(response);
+  };
+
+  const filterCities = async (stateId: number): Promise<void> => {
+    const response = await getByStateId(stateId);
+
+    setCities(response);
   };
 
   const createCity = async (city: City) => {
@@ -51,6 +58,7 @@ export const CitiesContextProvider = ({ children }: ProviderProps) => {
         createCity,
         updateCity,
         removeCity,
+        filterCities,
       }}
     >
       {children}

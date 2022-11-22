@@ -10,7 +10,7 @@ import { CitiesContext } from 'services/cities/cities.context';
 import { Header } from '../../components/Header';
 
 import { AddModal } from './components/AddModal';
-// import { EditModal } from './components/EditModal';
+import { EditModal } from './components/EditModal';
 
 export const Cities = () => {
   const [city, setCity] = useState<City>();
@@ -69,11 +69,11 @@ export const Cities = () => {
 
       <AddModal showModal={showModalAdd} setShowModal={setShowModalAdd} />
 
-      {/* <EditModal
-        state={state}
+      <EditModal
+        city={city}
         showModal={showModalEdit}
         setShowModal={setShowModalEdit}
-      /> */}
+      />
     </>
   );
 };

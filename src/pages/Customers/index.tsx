@@ -11,7 +11,7 @@ import { Header } from 'components/Header';
 import { CustomersContext } from 'services/customers/customers.context';
 
 import { AddModal } from './components/AddModal';
-// import { EditModal } from './components/EditModal';
+import { EditModal } from './components/EditModal';
 
 export const Customers = () => {
   const [customer, setCustomer] = useState<Customer>();
@@ -72,11 +72,11 @@ export const Customers = () => {
 
       <AddModal showModal={showModalAdd} setShowModal={setShowModalAdd} />
 
-      {/* <EditModal
-        state={state}
+      <EditModal
+        customer={customer}
         showModal={showModalEdit}
         setShowModal={setShowModalEdit}
-      /> */}
+      />
     </>
   );
 };

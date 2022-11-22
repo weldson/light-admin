@@ -31,7 +31,7 @@ export const AddModal = ({ showModal, setShowModal }: AddModalProps) => {
   return (
     <Modal show={showModal} onHide={() => setShowModal(false)}>
       <Modal.Header>
-        <Modal.Title>Adicionar Estado</Modal.Title>
+        <Modal.Title>Adicionar Cidade</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form.Group className="mb-3" controlId="name">
