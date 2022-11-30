@@ -1,10 +1,12 @@
 import React, { useState, createContext, useEffect } from 'react';
 import { Product } from 'interfaces/Product';
-import { list } from './products.service';
+import { list, remove, save, update } from './products.service';
 
 interface ProductsContextProps {
   products: Product[];
-  updateProducts: () => Promise<void>;
+  createProduct: (product: Product) => Promise<void>;
+  updateProduct: (id: number, product: Product) => Promise<void>;
+  removeProduct: (id: number) => Promise<void>;
 }
 
 export const ProductsContext = createContext({} as ProductsContextProps);
@@ -22,6 +24,21 @@ export const ProductsContextProvider = ({ children }: PropviderProps) => {
     setProducts(response);
   };
 
+  const createProduct = async (product: Product) => {
+    await save(product);
+    await updateProducts();
+  };
+
+  const updateProduct = async (id: number, product: Product) => {
+    await update(id, product);
+    await updateProducts();
+  };
+
+  const removeProduct = async (id: number) => {
+    await remove(id);
+    await updateProducts();
+  };
+
   useEffect(() => {
     updateProducts();
   }, []);
@@ -30,7 +47,9 @@ export const ProductsContextProvider = ({ children }: PropviderProps) => {
     <ProductsContext.Provider
       value={{
         products,
-        updateProducts,
+        createProduct,
+        updateProduct,
+        removeProduct,
       }}
     >
       {children}

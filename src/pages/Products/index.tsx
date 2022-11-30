@@ -7,61 +7,63 @@ import { CustomCard } from 'components/CustomCard';
 import { CircleButton, CustomTable } from 'components/CustomTable';
 
 import { Header } from 'components/Header';
-import { PaymentsContext } from 'services/payments/payments.context';
-import { Provider } from 'interfaces/Provider';
 import { ProvidersContext } from 'services/providers/providers.context';
+import { ProductsContext } from 'services/products/products.context';
+import { Product } from 'interfaces/Product';
 
 import { AddModal } from './components/AddModal';
 // import { EditModal } from './components/EditModal';
 
-export const Providers = () => {
-  const [provider, setProvider] = useState<Provider>();
+export const Products = () => {
+  const [product, setProduct] = useState<Product>();
 
   const [showModalAdd, setShowModalAdd] = useState(false);
   const [showModalEdit, setShowModalEdit] = useState(false);
 
-  const { providers, removeProvider } = useContext(ProvidersContext);
+  const { products, removeProduct } = useContext(ProductsContext);
 
-  const handleEdit = async (selectedProvider: Provider) => {
-    setProvider(selectedProvider);
+  const handleEdit = async (selectedProduct: Product) => {
+    setProduct(selectedProduct);
     setShowModalEdit(true);
   };
 
-  const handleRemove = async (selectedProvider: Provider) => {
-    if (selectedProvider.id) {
-      await removeProvider(selectedProvider.id);
+  const handleRemove = async (selectedProduct: Product) => {
+    if (selectedProduct.id) {
+      await removeProduct(selectedProduct.id);
     }
   };
 
   return (
     <>
-      <Header title="Fornecedores" />
+      <Header title="Produtos" />
       <Subheader showModal={setShowModalAdd} />
       <CustomCard>
         <CustomCard.Body>
           <CustomTable borderless>
             <thead>
               <tr>
-                <th className="col-md-1 col-sm-1">#</th>
+                <th>#</th>
                 <th>Nome</th>
-                <th>Porte</th>
-                <th>Instagram</th>
-                <th>WhatsApp</th>
-                <th>Site</th>
-                <th>Cidade/Estado</th>
+                <th>Qnt</th>
+                <th>Compra (R$)</th>
+                <th>Venda (R$)</th>
+                <th>Frete (R$)</th>
+                <th>Fornecedor</th>
+                <th>Categoria</th>
                 <th className="col-md-1 col-sm-2">Ações</th>
               </tr>
             </thead>
             <tbody>
-              {providers.map((p) => (
+              {products.map((p) => (
                 <tr key={p.id} className="align-middle">
                   <td>{p.id}</td>
                   <td>{p.name}</td>
-                  <td>{p.companySize?.name}</td>
-                  <td>{p.instagram}</td>
-                  <td>{p.whatsapp}</td>
-                  <td>{p.website}</td>
-                  <td>{p.city?.name}</td>
+                  <td>{p.quantity}</td>
+                  <td>{p.buyPrice}</td>
+                  <td>{p.sellPrice}</td>
+                  <td>{p.shipping}</td>
+                  <td>{p.categoryProviderId}</td>
+                  <td>{p.categoryProviderId}</td>
                   <td>
                     <CircleButton onClick={() => handleEdit(p)}>
                       <HiPencil color="#5f5b5b" size={20} />
@@ -80,7 +82,7 @@ export const Providers = () => {
       <AddModal showModal={showModalAdd} setShowModal={setShowModalAdd} />
 
       {/* <EditModal
-        payment={payment}
+        product={product}
         showModal={showModalEdit}
         setShowModal={setShowModalEdit}
       /> */}

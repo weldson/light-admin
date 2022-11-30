@@ -8,6 +8,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'import/prefer-default-export': 'off',
     'react-hooks/exhaustive-deps': 'off',
+    'react/no-array-index-key': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,

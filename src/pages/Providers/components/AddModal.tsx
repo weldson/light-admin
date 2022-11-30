@@ -7,6 +7,9 @@ import { CompaniesSizeContext } from 'services/companies-size/companies-size..co
 import { ProvidersContext } from 'services/providers/providers.context';
 import { StatesContext } from 'services/states/states.context';
 
+import { Category } from 'interfaces/Category';
+import { CategoriesContext } from 'services/categories/categories.context';
+
 interface AddModalProps {
   showModal: boolean;
   setShowModal: (value: boolean) => void;
@@ -24,10 +27,18 @@ export const AddModal = ({ showModal, setShowModal }: AddModalProps) => {
   const [neighborhood, setNeighborhood] = useState<string>('');
   const [cityId, setCityId] = useState<number>(0);
 
+  const [categoryFields, setCategoryFields] = useState<Category[]>([
+    {
+      name: '',
+      id: 0,
+    } as Category,
+  ]);
+
   const { createProvider } = useContext(ProvidersContext);
   const { companiesSize } = useContext(CompaniesSizeContext);
   const { states } = useContext(StatesContext);
   const { cities, filterCities } = useContext(CitiesContext);
+  const { categories } = useContext(CategoriesContext);
 
   const handleSave = async () => {
     await createProvider({
@@ -41,6 +52,7 @@ export const AddModal = ({ showModal, setShowModal }: AddModalProps) => {
       number,
       neighborhood,
       cityId,
+      categories: categoryFields,
     });
     setShowModal(false);
   };
@@ -61,6 +73,24 @@ export const AddModal = ({ showModal, setShowModal }: AddModalProps) => {
       setName('');
     }
   }, [showModal]);
+
+  const handleFormChange = (index: number, category: string) => {
+    const data = [...categoryFields];
+    data[index].id = Number(category);
+    setCategoryFields(data);
+  };
+
+  const addCategoryField = () => {
+    const newField = { name: '' };
+
+    setCategoryFields([...categoryFields, newField]);
+  };
+
+  const removeCategoryField = (index: number) => {
+    const data = [...categoryFields];
+    data.splice(index, 1);
+    setCategoryFields(data);
+  };
 
   return (
     <Modal show={showModal} onHide={() => setShowModal(false)}>
@@ -213,6 +243,35 @@ export const AddModal = ({ showModal, setShowModal }: AddModalProps) => {
             </Form.Group>
           </Col>
         </Row>
+        {categoryFields.map((input, idx) => (
+          <Row>
+            <Col className={idx === 0 ? 'col-sm-12' : 'col-sm-9'}>
+              {/* <Form.Label>Fornece</Form.Label> */}
+              <Form.Group className="mb-3" controlId="state">
+                <Form.Select
+                  onChange={(e) => handleFormChange(idx, e.target.value)}
+                >
+                  <option value={0}>-</option>
+                  {categories.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.name}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+            </Col>
+            {idx !== 0 && (
+              <Col className="col-sm-3">
+                <Button onClick={() => removeCategoryField(idx)}>
+                  Remover
+                </Button>
+              </Col>
+            )}
+          </Row>
+        ))}
+        <Button variant="primary" onClick={() => addCategoryField()}>
+          Adicionar
+        </Button>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={() => setShowModal(false)}>

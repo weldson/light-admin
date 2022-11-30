@@ -1,3 +1,7 @@
+import { Category } from './Category';
+import { City } from './City';
+import { CompanySize } from './CompanySize';
+
 export interface Provider {
   id?: number;
   name: string;
@@ -10,4 +14,7 @@ export interface Provider {
   number: string;
   neighborhood: string;
   cityId: number;
+  city?: City;
+  companySize?: CompanySize;
+  categories: Category[];
 }

@@ -9,6 +9,7 @@ import { CompaniesSizeContextProvider } from 'services/companies-size/companies-
 import { CustomersContextProvider } from 'services/customers/customers.context';
 import { RoutesAdmin } from 'routes';
 import { ProvidersContextProvider } from 'services/providers/providers.context';
+import { ProductsContextProvider } from 'services/products/products.context';
 
 export default function App() {
   return (
@@ -20,7 +21,9 @@ export default function App() {
               <StatesContextProvider>
                 <CitiesContextProvider>
                   <ProvidersContextProvider>
-                    <RoutesAdmin />
+                    <ProductsContextProvider>
+                      <RoutesAdmin />
+                    </ProductsContextProvider>
                   </ProvidersContextProvider>
                 </CitiesContextProvider>
               </StatesContextProvider>
