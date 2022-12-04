@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Button, Col, Form, FormControl, Modal, Row } from 'react-bootstrap';
-import InputMask from 'react-input-mask';
 
 import { ProvidersContext } from 'services/providers/providers.context';
 
 import { CategoriesContext } from 'services/categories/categories.context';
 import { ProductsContext } from 'services/products/products.context';
+import { CategoriesProviderContext } from 'services/category-provider/category-provider.context';
 
 interface AddModalProps {
   showModal: boolean;
@@ -23,13 +23,19 @@ export const AddModal = ({ showModal, setShowModal }: AddModalProps) => {
   const { createProduct } = useContext(ProductsContext);
   const { providers } = useContext(ProvidersContext);
 
-  // const { categories } = useContext(CategoriesContext);
+  const { categoriesProvider, getCategoryProviderByProviderId } = useContext(
+    CategoriesProviderContext
+  );
 
   const handleSave = async () => {
     // await createProduct({
     //   name,
     // });
     setShowModal(false);
+  };
+
+  const onChangeProvider = async (providerId: number) => {
+    await getCategoryProviderByProviderId(providerId);
   };
 
   useEffect(() => {
@@ -58,7 +64,7 @@ export const AddModal = ({ showModal, setShowModal }: AddModalProps) => {
           </Col>
         </Row>
         <Row>
-          <Col className="col-md-4 col-sm-4">
+          <Col className="col-md-3 col-sm-3">
             <Form.Group className="mb-3" controlId="whatsapp">
               <Form.Label>Qnt</Form.Label>
               <Form.Control
@@ -69,7 +75,7 @@ export const AddModal = ({ showModal, setShowModal }: AddModalProps) => {
               />
             </Form.Group>
           </Col>
-          <Col className="col-md-4 col-sm-4">
+          <Col className="col-md-3 col-sm-3">
             <Form.Group className="mb-3" controlId="phone">
               <Form.Label>Compra (R$)</Form.Label>
               <Form.Control
@@ -80,7 +86,7 @@ export const AddModal = ({ showModal, setShowModal }: AddModalProps) => {
               />
             </Form.Group>
           </Col>
-          <Col className="col-md-4 col-sm-4">
+          <Col className="col-md-3 col-sm-3">
             <Form.Group className="mb-3" controlId="instagram">
               <Form.Label>Venda (R$)</Form.Label>
               <Form.Control
@@ -91,73 +97,52 @@ export const AddModal = ({ showModal, setShowModal }: AddModalProps) => {
               />
             </Form.Group>
           </Col>
-        </Row>
-        <Row>
-          <Col className="col-md-6 col-sm-6">
+          <Col className="col-md-3 col-sm-3">
             <Form.Group className="mb-3" controlId="website">
-              <Form.Label>Frete</Form.Label>
+              <Form.Label>Frete (R$)</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="www.pikena.com.br"
+                placeholder="10"
                 value={shipping}
                 onChange={(e) => setShipping(e.target.value)}
               />
             </Form.Group>
           </Col>
-          {/* <Col className="col-md-6 col-sm-6">
+        </Row>
+        <Row>
+          <Col className="col-md-6 col-sm-6">
             <Form.Group className="mb-3" controlId="size">
-              <Form.Label>Porte</Form.Label>
+              <Form.Label>Fornecedor</Form.Label>
               <Form.Select
-                onChange={(e) => setCompanySizeId(Number(e.target.value))}
-                value={companySizeId}
+                onChange={(e) => onChangeProvider(Number(e.target.value))}
+                // value={companySizeId}
               >
                 <option value={0}>-</option>
-                {companiesSize.map((cs) => (
-                  <option key={cs.id} value={cs.id}>
-                    {cs.name}
+                {providers.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name}
                   </option>
                 ))}
               </Form.Select>
             </Form.Group>
-          </Col> */}
-        </Row>
-        {/* <Row>
-          <Col className="col-md-12 col-sm-12">
-            <Form.Group className="mb-3" controlId="street">
-              <Form.Label>Rua</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Rua Fulano de Tal"
-                value={street}
-                onChange={(e) => setStreet(e.target.value)}
-              />
+          </Col>
+          <Col className="col-md-6 col-sm-6">
+            <Form.Group className="mb-3" controlId="size">
+              <Form.Label>Categoria</Form.Label>
+              <Form.Select
+                onChange={(e) => setCategoryProviderId(Number(e.target.value))}
+                value={categoryProviderId}
+              >
+                <option value={0}>-</option>
+                {categoriesProvider.map((cp) => (
+                  <option key={cp.id} value={cp.id}>
+                    {cp.category?.name}
+                  </option>
+                ))}
+              </Form.Select>
             </Form.Group>
           </Col>
         </Row>
-        <Row>
-          <Col className="col-md-3 col-sm-4">
-            <Form.Group className="mb-3" controlId="number">
-              <Form.Label>Número</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="97A"
-                value={number}
-                onChange={(e) => setNumber(e.target.value)}
-              />
-            </Form.Group>
-          </Col>
-          <Col className="col-md-9 col-sm-8">
-            <Form.Group className="mb-3" controlId="neighborhood">
-              <Form.Label>Bairro</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Barreto"
-                value={neighborhood}
-                onChange={(e) => setNeighborhood(e.target.value)}
-              />
-            </Form.Group>
-          </Col>
-        </Row> */}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={() => setShowModal(false)}>

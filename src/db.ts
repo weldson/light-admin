@@ -43,7 +43,7 @@ export class XShopDexie extends Dexie {
     this.version(1).stores({
       bags: '++id, name, price',
       categories: '++id, name',
-      categoryProvider: '++id, categoryId, ProviderId',
+      categoryProvider: '++id, categoryId, providerId',
       cities: '++id, name, stateId',
       companiesSize: '++id, name',
       customers: '++id, name, phone, birth',

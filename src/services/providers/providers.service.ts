@@ -27,8 +27,8 @@ export const save = async (provider: Provider) => {
 
     // TODO: allow save only distinct categories
     const categoryProviders = provider.categories.map((c) => ({
-      categoryId: Number(id),
-      providerId: c.id,
+      categoryId: c.id,
+      providerId: Number(id),
     })) as CategoryProvider[];
 
     await db.categoryProvider.bulkAdd(categoryProviders);

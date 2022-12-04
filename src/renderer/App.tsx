@@ -10,6 +10,7 @@ import { CustomersContextProvider } from 'services/customers/customers.context';
 import { RoutesAdmin } from 'routes';
 import { ProvidersContextProvider } from 'services/providers/providers.context';
 import { ProductsContextProvider } from 'services/products/products.context';
+import { CateogiesProviderContextProvider } from 'services/category-provider/category-provider.context';
 
 export default function App() {
   return (
@@ -22,7 +23,9 @@ export default function App() {
                 <CitiesContextProvider>
                   <ProvidersContextProvider>
                     <ProductsContextProvider>
-                      <RoutesAdmin />
+                      <CateogiesProviderContextProvider>
+                        <RoutesAdmin />
+                      </CateogiesProviderContextProvider>
                     </ProductsContextProvider>
                   </ProvidersContextProvider>
                 </CitiesContextProvider>
