@@ -1,10 +1,12 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { Order } from 'interfaces/Order';
-import { listOrders } from './orders.service';
+import { list, save, update, remove } from './orders.service';
 
 interface OrdersContextProps {
   orders: Order[];
-  updateOrders: () => Promise<void>;
+  createOrder: (order: Order) => Promise<void>;
+  updateOrder: (id: number, order: Order) => Promise<void>;
+  removeOrder: (id: number) => Promise<void>;
 }
 
 export const OrdersContext = createContext({} as OrdersContextProps);
@@ -17,9 +19,24 @@ export const OrdersContextProvider = ({ children }: ProviderProps) => {
   const [orders, setOrders] = useState<Order[]>([]);
 
   const updateOrders = async (): Promise<void> => {
-    const response = await listOrders();
+    const response = await list();
 
     setOrders(response);
+  };
+
+  const createOrder = async (order: Order): Promise<void> => {
+    await save(order);
+    await updateOrders();
+  };
+
+  const updateOrder = async (id: number, order: Order): Promise<void> => {
+    await update(id, order);
+    await updateOrders();
+  };
+
+  const removeOrder = async (id: number): Promise<void> => {
+    await remove(id);
+    await updateOrders();
   };
 
   useEffect(() => {
@@ -30,7 +47,9 @@ export const OrdersContextProvider = ({ children }: ProviderProps) => {
     <OrdersContext.Provider
       value={{
         orders,
-        updateOrders,
+        createOrder,
+        updateOrder,
+        removeOrder,
       }}
     >
       {children}

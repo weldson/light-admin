@@ -34,7 +34,7 @@ export const Payments = () => {
 
   return (
     <>
-      <Header title="Formas de pagamento" />
+      <Header title="Formas de Pagamento" />
       <Subheader showModal={setShowModalAdd} />
       <CustomCard>
         <CustomCard.Body>

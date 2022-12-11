@@ -17,6 +17,7 @@ import { CompaniesSize } from 'pages/CompaniesSize';
 import { Customers } from 'pages/Customers';
 import { Providers } from 'pages/Providers';
 import { Products } from 'pages/Products';
+import { Orders } from 'pages/Orders';
 
 export const RoutesAdmin = () => (
   <Router>
@@ -32,6 +33,7 @@ export const RoutesAdmin = () => (
         <Route path="/states" element={<States />} />
         <Route path="/providers" element={<Providers />} />
         <Route path="/products" element={<Products />} />
+        <Route path="orders" element={<Orders />} />
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
     </Painel>

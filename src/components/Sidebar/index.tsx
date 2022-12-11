@@ -163,11 +163,11 @@ const Sidebar = () => {
             <NavLink className="nav-link" to="/payments">
               {({ isActive }) =>
                 isActive ? (
-                  <ItemActive text="Formas de pagamento">
+                  <ItemActive text="Formas de Pagamento">
                     <IoCard size={16} color="#fff" />
                   </ItemActive>
                 ) : (
-                  <Item text="Formas de pagamento">
+                  <Item text="Formas de Pagamento">
                     <IoCard size={16} color="#4fd1c5" />
                   </Item>
                 )
@@ -178,11 +178,11 @@ const Sidebar = () => {
             <NavLink className="nav-link" to="/companies-size">
               {({ isActive }) =>
                 isActive ? (
-                  <ItemActive text="Tamanho da empresa">
+                  <ItemActive text="Porte dos Fornecedores">
                     <IoBusiness size={16} color="#fff" />
                   </ItemActive>
                 ) : (
-                  <Item text="Tamanho da empresa">
+                  <Item text="Porte dos Fornecedores">
                     <IoBusiness size={16} color="#4fd1c5" />
                   </Item>
                 )

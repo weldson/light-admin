@@ -28,9 +28,19 @@ export const AddModal = ({ showModal, setShowModal }: AddModalProps) => {
   );
 
   const handleSave = async () => {
-    // await createProduct({
-    //   name,
-    // });
+    const nQuant = Number(quantity);
+    const nBuyPrice = Number(buyPrice);
+    const nSellPrice = Number(sellPrice);
+    const nShipping = Number(shipping);
+    await createProduct({
+      name,
+      quantity: nQuant,
+      buyPrice: nBuyPrice,
+      sellPrice: nSellPrice,
+      shipping: nShipping,
+      categoryProviderId,
+      image: '',
+    });
     setShowModal(false);
   };
 
