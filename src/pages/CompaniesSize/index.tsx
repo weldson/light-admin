@@ -9,7 +9,7 @@ import { CircleButton, CustomTable } from 'components/CustomTable';
 import { Header } from 'components/Header';
 
 import { CompanySize } from 'interfaces/CompanySize';
-import { CompaniesSizeContext } from 'services/companies-size/companies-size..context';
+import { CompaniesSizeContext } from 'services/companies-size/companies-size.context';
 
 import { AddModal } from './components/AddModal';
 import { EditModal } from './components/EditModal';

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-import { CompaniesSizeContext } from 'services/companies-size/companies-size..context';
+import { CompaniesSizeContext } from 'services/companies-size/companies-size.context';
 
 interface AddModalProps {
   showModal: boolean;

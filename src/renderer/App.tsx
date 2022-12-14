@@ -5,7 +5,7 @@ import { StatesContextProvider } from 'services/states/states.context';
 
 import './App.css';
 import { PaymentsContextProvider } from 'services/payments/payments.context';
-import { CompaniesSizeContextProvider } from 'services/companies-size/companies-size..context';
+import { CompaniesSizeContextProvider } from 'services/companies-size/companies-size.context';
 import { CustomersContextProvider } from 'services/customers/customers.context';
 import { RoutesAdmin } from 'routes';
 import { ProvidersContextProvider } from 'services/providers/providers.context';

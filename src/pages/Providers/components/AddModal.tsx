@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import InputMask from 'react-input-mask';
 import { CitiesContext } from 'services/cities/cities.context';
-import { CompaniesSizeContext } from 'services/companies-size/companies-size..context';
+import { CompaniesSizeContext } from 'services/companies-size/companies-size.context';
 
 import { ProvidersContext } from 'services/providers/providers.context';
 import { StatesContext } from 'services/states/states.context';

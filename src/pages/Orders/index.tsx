@@ -11,11 +11,11 @@ import { OrdersContext } from 'services/orders/orders.context';
 import { Order } from 'interfaces/Order';
 import { formatDate } from 'utils/format';
 
-// import { AddModal } from './components/AddModal';
+import { AddModal } from './components/AddModal';
 // import { EditModal } from './components/EditModal';
 
 export const Orders = () => {
-  const [product, setProduct] = useState<Order>();
+  const [order, setOrder] = useState<Order>();
 
   const [showModalAdd, setShowModalAdd] = useState(false);
   const [showModalEdit, setShowModalEdit] = useState(false);
@@ -23,7 +23,7 @@ export const Orders = () => {
   const { orders, removeOrder } = useContext(OrdersContext);
 
   const handleEdit = async (selectedOrder: Order) => {
-    setProduct(selectedOrder);
+    setOrder(selectedOrder);
     setShowModalEdit(true);
   };
 
@@ -75,10 +75,10 @@ export const Orders = () => {
         </CustomCard.Body>
       </CustomCard>
 
-      {/* <AddModal showModal={showModalAdd} setShowModal={setShowModalAdd} /> */}
+      <AddModal showModal={showModalAdd} setShowModal={setShowModalAdd} />
 
       {/* <EditModal
-        product={product}
+        order={order}
         showModal={showModalEdit}
         setShowModal={setShowModalEdit}
       /> */}
